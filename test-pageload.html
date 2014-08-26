@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <style>
+    div {
+      width: 250px;
+      padding: 5px;
+      margin: 5px;
+    }
+    
+    .border {
+      border: 1px solid blue;
+    }
+    
+    .border:hover {
+      border: 1px solid red;
+    }
+    
+    .border:active {
+      border: 1px solid green;
+    }
+    
+    #spacer {
+      display: block;
+      width; 100px;
+      height: 1500px;
+    }
+  </style>
+</head>
+<body>
+  <div id="goog" class="border">
+    URL via window.location
+  </div>
+  <div id="googreplace" class="border">
+    URL via window.location.replace
+  </div>
+  <div id="hash" class="border">
+    Hash via window.location
+  </div>
+  <div id="locationhash" class="border">
+    Hash via window.location.hash
+  </div>
+  <div id="locationreplace" class="border">
+    Hash via window.location.replace
+  </div>
+  <div class="border">
+    <a href="#content">Hash via anchor</a>
+  </div>
+  <div id="iframeonclick" class="border">
+      Load IFrame on click
+  </div>
+  <div id="sandbox"></div>
+  <div id="spacer"></div>
+  <div id="content">CONTENT</div>
+  <script>
+    window.onload = function() {
+      mappings = {
+        '#goog': function() {
+          window.location = 'http://www.google.com';
+        },
+        '#googreplace': function() {
+          window.location.replace('http://jsbin.com/zodod/1/quiet');
+        },
+        '#hash': function() {
+          window.location = "#content";
+        },
+        '#locationhash': function() {
+           window.location.hash = 'content';
+        },
+        '#locationreplace': function() {
+          window.location.replace('#content');
+        },
+        '#iframeonclick': function() {
+            var f = document.createElement('iframe');
+            f.src = 'focus-onload.html';
+            document.querySelector('#sandbox').innerHTML = '';
+            document.querySelector('#sandbox').appendChild(f);
+        },
+      }
+      
+      for (key in mappings)
+        document.querySelector(key).addEventListener('click', mappings[key]);
+    }
+  </script>
+</body>
+</html>
